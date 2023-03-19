@@ -29,8 +29,8 @@ function DisplayCommentsOfThisPost(postId){
                 let comment = document.createElement('div');
                 comment.id = 'comment';
                 comment.innerHTML = `<h2>Comment #${i + 1} </h2> <h4>ID: ${commentItem.id}</h4>
-                <p>Name: ${commentItem.name}</p>
-                <p>email: ${commentItem.email}</p> <p>Text: ${commentItem.body}</p>`;
+                <p><b>Name:</b> ${commentItem.name}</p>
+                <p><b>email:</b> ${commentItem.email}</p> <p><b>Text:</b> ${commentItem.body}</p>`;
 
                 if (i % 4 === 0) {
                     divForComments = document.createElement('div');
