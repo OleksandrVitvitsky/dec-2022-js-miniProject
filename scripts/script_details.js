@@ -1,4 +1,12 @@
 
+// На странице user-details.html:
+// 4 Вивести всю, без виключення, інформацію про об'єкт user на який клікнули
+// 5 Додати кнопку "post of current user", при кліку на яку, з'являються title всіх постів поточного юзера
+// (для получения постов используйте эндпоинт https://jsonplaceholder.typicode.com/users/USER_ID/posts)
+// 6 Каждому посту додати кнопку/посилання, при кліку на яку відбувається перехід на сторінку post-details.html,
+// котра має детальну інфу про поточний пост.
+
+
 function GetMoreInformation(object) {
     let returnValue = '';
     for (const objectKey in object) {
@@ -26,7 +34,7 @@ function DisplayPostsThisUser(id){
                 const postItem = postsArray[i];
                 let post = document.createElement('div');
                     post.id = 'post';
-                post.innerHTML = `<h2>Post #${i+1} </h2> <h4>Title ${postItem.title}</h4>`;
+                post.innerHTML = `<h2>Post #${postItem.id} </h2> <h4>Title ${postItem.title}</h4>`;
                 let btnPost = document.createElement('div');
                 btnPost.setAttribute('class', 'button2');
 
@@ -48,13 +56,22 @@ function DisplayPostsThisUser(id){
 
             container.appendChild(divForPosts);
             document.body.appendChild(container);
-
+            ScrollWindow();
         })
 
 
 }
 
+function ScrollWindow() {
+    mainContainerForPosts = document.getElementById('mainDivPosts');
 
+    let nextBlockHeight = mainContainerForPosts.getBoundingClientRect().height;
+    window.scrollBy({
+        top: nextBlockHeight,
+        left: 0,
+        behavior: 'smooth'
+    });
+}
 
 let main_div = document.createElement('div');
 let url = new URL(location.href);
@@ -106,18 +123,14 @@ btn.setAttribute('class','button1');
 btn.innerText = 'Post of current user';
 btn.addEventListener('click', function(event){
    event.preventDefault();
-   DisplayPostsThisUser(user.id);
+    let mainContainerForPosts = document.getElementById('mainDivPosts');
+    if (!mainContainerForPosts) {
+        DisplayPostsThisUser(user.id);
+    }
+    ScrollWindow();
 });
-
 
 div_group.appendChild(btn);
 form.appendChild(div_group);
-
-
 main_div.appendChild(form);
-
-
-console.log(user);
-
-
 document.body.appendChild(main_div);

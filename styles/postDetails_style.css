@@ -2,11 +2,19 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 h2 {
     padding-bottom: 8px;
     border-bottom: 3px solid black;
-    margin-bottom: 15px}
+    margin: 0 0 0 10px;
+}
 
+h4{
+    margin: 0 auto;
+}
 #form {
     margin: 0 auto;
     background-color: rgba(199, 241, 241, 0.41);
@@ -69,4 +77,30 @@ textarea:focus {
 
 button:hover {
     transform: scale(1.05);
+}
+
+#divForComments {
+    display: flex;
+    justify-content: center;
+    row-gap: 10px;
+    column-gap: 7px;
+    align-items: center;
+    width: 100%;
+    height: 350px;
+    margin: 10px;
+    min-width: 970px;
+}
+
+#comment {
+    border: 1px solid black;
+    border-radius: 8px/8px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    align-items: center;
+    width: 25%;
+    height: 100%;
+    background-color: rgba(199, 241, 241, 0.41);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }

@@ -1,5 +1,21 @@
+//
+//
+// На странице post-details.html:
+// 7 Вивести всю, без виключення, інформацію про об'єкт post на який клікнули .
+// 8 Нижчє інформаці про пост, вивести всі коментарі поточного поста (ендпоінт  - https://jsonplaceholder.typicode.com/posts/POST_ID/comments)
+//
+// Стилизація проєкта -
+// index.html - всі блоки з user - по 2 в рядок. кнопки/аосилвння розташувати під інформацією про user.
+// user-details.html - блок з інфою про user зверху сторінки. Кнопка нижчє, на 90% ширини сторінки, по центру.
+// блоки з короткою іфною про post - в ряд по 5 .
+// post-details.html - блок з інфою про пост зверху. Коментарі - по 4 в ряд.
+// Всі елементи котрі характеризують users, posts, comments візуалізувати, так, щоб було видно що це блоки (дати фон. марджини
+//
+//  і тд)
+
+
 function DisplayCommentsOfThisPost(postId){
-    let url = new URL('https://jsonplaceholder.typicode.com/posts/' + id + '/comments');
+    let url = new URL('https://jsonplaceholder.typicode.com/posts/' + postId + '/comments');
     fetch(url)
         .then(responce => responce.json())
         .then(commentsArray => {
@@ -11,14 +27,14 @@ function DisplayCommentsOfThisPost(postId){
             for (let i = 0; i < commentsArray.length; i++) {
                 const commentItem = commentsArray[i];
                 let comment = document.createElement('div');
-                comment.id = 'post';
-                comment.innerHTML = `<h2>Comment #${i + 1} </h2> <h4>ID: ${commentItem.Id}</h4>
+                comment.id = 'comment';
+                comment.innerHTML = `<h2>Comment #${i + 1} </h2> <h4>ID: ${commentItem.id}</h4>
                 <p>Name: ${commentItem.name}</p>
                 <p>email: ${commentItem.email}</p> <p>Text: ${commentItem.body}</p>`;
 
                 if (i % 4 === 0) {
                     divForComments = document.createElement('div');
-                    divForPosts.id = 'divForComments';
+                    divForComments.id = 'divForComments';
                     container.appendChild(divForComments);
                 }
 
@@ -28,12 +44,22 @@ function DisplayCommentsOfThisPost(postId){
 
             container.appendChild(divForComments);
             document.body.appendChild(container);
-
+            ScrollWindow();
         })
 
 
 }
+function ScrollWindow(){
+    mainContainerForComments = document.getElementById('mainDivComments');
 
+    let nextBlockHeight = mainContainerForComments.getBoundingClientRect().height;
+
+
+    window.scrollBy({
+        top: nextBlockHeight,
+        left: 0,
+        behavior: 'smooth'
+    });
 }
 let main_div = document.createElement('div');
 let url = new URL(location.href);
@@ -73,10 +99,17 @@ div_group.setAttribute('class', 'group_btn');
 
 let btn = document.createElement('button');
 btn.setAttribute('class', 'button1');
+
 btn.innerText = 'Get comments';
 btn.addEventListener('click', function (event) {
     event.preventDefault();
-     DisplayCommentsOfThisPost(post.id);
+    let mainContainerForComments = document.getElementById('mainDivComments');
+    if (!mainContainerForComments) {
+        DisplayCommentsOfThisPost(post.id);
+
+    }
+    ScrollWindow();
+
 });
 
 
@@ -84,19 +117,3 @@ div_group.appendChild(btn);
 form.appendChild(div_group);
 main_div.appendChild(form);
 document.body.appendChild(main_div);
-
-
-
-
-
-//
-//
-// let url = new URL('https://jsonplaceholder.typicode.com/posts/'+ post.id+'/comments');
-// fetch(url)
-//     .then(responce => responce.json())
-//     .then(postsArray => {
-//
-//
-//
-//     })
-
