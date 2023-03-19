@@ -10,6 +10,40 @@
 </head>
 <body>
 
-<script src="./scripts/script.js"></script>
+<script src="scripts/script_main.js"></script>
 </body>
 </html>
+
+
+let url = new URL('https://jsonplaceholder.typicode.com/posts/' + id + '/comments');
+fetch(url)
+.then(responce => responce.json())
+.then(commentsArray => {
+let container = document.createElement('div');
+container.id = 'mainDivComments';
+
+let divForComments = document.createElement('div');
+divForComments.id = 'divForComments';
+for (let i = 0; i < commentsArray.length; i++) {
+const commentItem = commentsArray[i];
+let comment = document.createElement('div');
+comment.id = 'post';
+comment.innerHTML = `<h2>Comment #${i + 1} </h2> <h4>ID: ${commentItem.Id}</h4>
+<p>Name: ${commentItem.name}</p>
+<p>email: ${commentItem.email}</p> <p>Text: ${commentItem.body}</p>`;
+
+if (i % 4 === 0) {
+divForComments = document.createElement('div');
+divForPosts.id = 'divForComments';
+container.appendChild(divForComments);
+}
+
+divForComments.appendChild(comment);
+}
+
+
+container.appendChild(divForComments);
+document.body.appendChild(container);
+
+})
+
